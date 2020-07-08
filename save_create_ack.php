@@ -86,7 +86,7 @@ if($num > 0){
              $res = mysqli_query($conn , $sql_select_j3_rost);
                 $c = 0;
                 while ($row = mysqli_fetch_assoc($res)) {
-                    $ROST_UNIT =  substr( $_POST["UNIT_NAME2"] , 0 , 5). substr($row["ROST_UNIT"], 5 , 9);
+                    $ROST_UNIT =  substr( $_POST["UNIT_NAME2"] , 0 , 4). substr($row["ROST_UNIT"], 4 , 9);
                     $ROST_CPOS = $row["ROST_CPOS"];
                     $ROST_POSNAME = $row["ROST_POSNAME"];
                     $ROST_POSNAME_ACM = $row["ROST_POSNAME_ACM"];
