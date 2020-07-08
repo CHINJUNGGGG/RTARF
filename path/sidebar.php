@@ -192,7 +192,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="ajy.blade.php" class="nav-link active">
+                            <a href="read_ajy.php" class="nav-link active">
                                 <i class="fas fa-flag nav-icon"></i>
                                 <p>อัตราการจัดยุทโธปกรณ์</p>
                             </a>
@@ -200,7 +200,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="ack.blade.php" class="nav-link active">
+                            <a href="read_ack.php" class="nav-link active">
                                 <i class="fas fa-flag nav-icon"></i>
                                 <p>อัตราการจัดเฉพาะกิจ</p>
                             </a>
