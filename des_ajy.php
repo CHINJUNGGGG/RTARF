@@ -859,8 +859,7 @@ $DMY3 = substr($UNIT_DMY_2,4,4);
 									?>
 
 									<div id="Home" class="tabcontent">
-										<a href="export_word_ajy.php?id=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-primary"><i class="fas fa-file-word"></i> กล่าวทั่วไป</button></a>
-										<a href="report_ajy.php?id=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-danger"><i class="fas fa-file-pdf"></i> กล่าวทั่วไป</button></a><br><br>
+										<a href="report1_ajy.php?id=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-danger"><i class="fas fa-file-pdf"></i> กล่าวทั่วไป</button></a><br><br>
 										<div class="form-group">
 											<label for="exampleTextarea1"><font style="font-weight: bold; font-size: 18px;">ภารกิจ :</font></label>
 											<textarea class="form-control" id="editor" rows="4" name="AJY_MISSION" style="border-width:1px; border-color: gray; font-weight: bold; font-size: 18px;" DISABLED><?=$AJY_M?></textarea>
@@ -880,8 +879,7 @@ $DMY3 = substr($UNIT_DMY_2,4,4);
 									</div>
 
 									<div id="Sturc" class="tabcontent">
-										<a href="iframe_tree.php?id=<?=$UNIT_CODE_2?>&id2=<?=$AJY_NUM_ID?>" target="_blank" class="btn btn-warning"><i class="fas fa-print"></i> ผังการจัด</a>
-										<a href="report_2.php?id=<?=$UNIT_CODE_2?>&id2=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-danger"><i class="fas fa-file-pdf"></i> ผังการจัด</button></a>
+										<a href="report_tree.php?id=<?=$UNIT_CODE_2?>&id2=<?=$AJY_NUM_ID?>" target="_blank" class="btn btn-warning"><i class="fas fa-print"></i> ผังการจัด</a>
 										<div style="text-align: center;">
 											<br>
 											<section class="basic-style">
@@ -977,9 +975,9 @@ $DMY3 = substr($UNIT_DMY_2,4,4);
 
 									<div id="News" class="tabcontent"> 
 										<button type="button" id="link_modal" data-toggle="modal" data-target="#modalPersonal" class="btn btn-info editbtn"><i class="fas fa-plus"></i></button></a>
-										<a href="report_sum_ajy_approve.php?id=<?=$UNIT_CODE_2;?>&name=<?=$UNIT_CODE_2;?>&nickname=<?=$UNIT_CODE_2;?>&lastname=<?=$UNIT_CODE_2?>&id5=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-primary"><i class="fas fa-file-word"></i> อัตรากำลังพลตามตำแหน่ง</button></a>
-										<a href="report_iframe_ajy_approve.php?id=<?=$UNIT_CODE_2;?>&name=<?=$UNIT_CODE_2;?>&nickname=<?=$UNIT_CODE_2;?>&lastname=<?=$UNIT_CODE_2?>&id5=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-success"><i class="fas fa-file-word"></i> สรุปยอดอัตราตามตำแหน่ง</button></a>
-										<a href="report_sum_p_ajy_approve.php?id=<?=$UNIT_CODE_2;?>&name=<?=$UNIT_CODE_2;?>&nickname=<?=$UNIT_CODE_2;?>&lastname=<?=$UNIT_CODE_2?>&id5=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-danger"><i class="fas fa-file-word"></i> สรุปยอดอัตราตามชั้นยศ</button></a>
+										<a href="report3.1_ajy.php?id=<?=$UNIT_CODE_2;?>&name=<?=$UNIT_CODE_2;?>&nickname=<?=$UNIT_CODE_2;?>&lastname=<?=$UNIT_CODE_2?>&id5=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-primary"><i class="fas fa-file-word"></i> อัตรากำลังพลตามตำแหน่ง</button></a>
+										<a href="report3.2_ajy.php?id=<?=$UNIT_CODE_2;?>&name=<?=$UNIT_CODE_2;?>&nickname=<?=$UNIT_CODE_2;?>&lastname=<?=$UNIT_CODE_2?>&id5=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-success"><i class="fas fa-file-word"></i> สรุปยอดอัตราตามตำแหน่ง</button></a>
+										<a href="report3.3_ajy.php?id=<?=$UNIT_CODE_2;?>&name=<?=$UNIT_CODE_2;?>&nickname=<?=$UNIT_CODE_2;?>&lastname=<?=$UNIT_CODE_2?>&id5=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-danger"><i class="fas fa-file-word"></i> สรุปยอดอัตราตามชั้นยศ</button></a>
 										<br>
 										<div class="card-body">
 											<form action="save_rost12.php" method="POST" id="rost_form">
@@ -1116,8 +1114,7 @@ $DMY3 = substr($UNIT_DMY_2,4,4);
 									</div>
 
 									<div id="Contact" class="tabcontent">
-										<a href="export_word_explan.php?id=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-primary"><i class="fas fa-file-word"></i> คำชี้แจง</button></a>
-										<a href="report_4_ajy.php?id=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-danger"><i class="fas fa-file-pdf"></i> คำชี้แจง</button></a><br><br>
+										<a href="report4_ajy.php?id=<?=$AJY_NUM_ID?>"><button type="button" class="btn btn-danger"><i class="fas fa-file-pdf"></i> คำชี้แจง</button></a><br><br>
 										<div class="form-group">
 											<label for="exampleTextarea1"><font style="font-weight: bold; font-size: 18px;">คำชี้แจง :</font></label>
 											<textarea class="form-control" id="editor4" rows="4" name="AJY_EXPLANATION" style="border-width:1px; border-color: gray;font-weight: bold; font-size: 18px;" DISABLED><?=$AJY_E?></textarea>
@@ -1125,7 +1122,7 @@ $DMY3 = substr($UNIT_DMY_2,4,4);
 									</div>
 
 									<div id="About" class="tabcontent">
-										<a href="report_5_ajy.php?id=<?=$AJY_NUM_ID;?>"><button type="button" class="btn btn-danger"><i class="fas fa-file-pdf"></i> อัตรายุโธปกรณ์</button></a>
+										<a href="report5_ajy.php?id=<?=$AJY_NUM_ID;?>"><button type="button" class="btn btn-danger"><i class="fas fa-file-pdf"></i> อัตรายุโธปกรณ์</button></a>
 										<div class="card-body">
 											<table id="example2" class="table table-bordered table-striped">
 												<thead class="bg-primary">                                                        
