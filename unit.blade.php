@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include ('db/connectpdo.php');
 
 $UNIT_CODE = $_GET['id'];

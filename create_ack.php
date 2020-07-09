@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 date_default_timezone_set('Asia/Bangkok');
 include ('db/connectpdo.php');
 include ('db/connect.php');
@@ -502,6 +502,23 @@ while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
             });
         });
     </script>
+        <script>
+        $(function () {
+            $("#example5").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            });
+            $('#example6').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            });
+        });
+    </script>
     <script>
     $('select[name="PART_ID"]').on('change', function() {
         $.ajax({
@@ -612,14 +629,14 @@ while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
 
 
     $('form[action="save_create_ack.php"]').submit(function(e) {
-        // var modalBody = $(this).parent()
-        // var spinner = `
-		// 				<div class="spinner-border text-secondary" role="status">
-		// 					<span class="sr-only">Loading...</span>
-		// 				</div>
-		// 				`
-        // modalBody.empty()
-        // modalBody.html(spinner).addClass('text-center')
+        var modalBody = $(this).parent()
+        var spinner = `
+						<div class="spinner-border text-secondary" role="status">
+							<span class="sr-only">Loading...</span>
+						</div>
+						`
+        modalBody.empty()
+        modalBody.html(spinner).addClass('text-center')
         $.ajax({
             type: $(this).attr('method'),
             url: $(this).attr('action'),
@@ -627,8 +644,8 @@ while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
             // dataType: "dataType",
             success: function(response) {
                 console.log(response)
-                // alert('สร้างข้อมูลเรียบร้อยแล้ว')
-                // location.reload();
+                alert('สร้างข้อมูลเรียบร้อยแล้ว')
+                location.reload();
             }
         });
 

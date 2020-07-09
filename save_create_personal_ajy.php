@@ -1,0 +1,196 @@
+<?php
+    
+    if(isset($_POST["do"]) && $_POST["do"] != "" ){
+        $do = $_POST["do"];
+        include ('db/connectpdo.php');
+        include 'db/connect.php';
+        switch($do){
+            case 'modal_edit_p_ajy':
+                $sql3 = "SELECT 
+                j3_rost_transaction.*,
+                j1_rank.ROST_CDEP,
+                j1_rank.RANK_ID,
+                j1_rank.ROST_RANK,
+                j3_rebirth.*
+                FROM j3_rost_transaction 
+                LEFT JOIN j1_rank ON(j3_rost_transaction.ROST_RANK = j1_rank.ROST_RANK AND j3_rost_transaction.ROST_RANKNAME = j1_rank.ROST_RANKNAME) 
+                LEFT JOIN j3_rebirth ON(j3_rost_transaction.ROST_LAO_MAJ = j3_rebirth.CLAO_NAME_SHORT)
+                WHERE ROST_ID = :ID ";
+                $ID = $_POST["rost_id"];
+                $stmt3=$db->prepare($sql3);
+                $stmt3->bindparam(':ID',$ID);
+                $stmt3->execute();
+                $row3=$stmt3->fetch(PDO::FETCH_ASSOC);
+                $row3['ROST_POSNAME'] = str_replace($_POST["old_unit_name"],$_POST["unit_name"],$row3["ROST_POSNAME"]);
+                $row3['ROST_POSNAME_ACM'] = str_replace($_POST["old_unit_name_ajy"],$_POST["unit_name_ajy"],$row3["ROST_POSNAME_ACM"]);
+                switch ($_POST["unit_acm_create"]) {
+                    case 'กรม':
+                        $row3["ROST_PARENT"] = substr($_POST["unit_name2"] , 0, 3).substr($row3["ROST_PARENT"] , 3, 9);   
+                        $row3["ROST_NUNIT"] = substr($_POST["unit_name2"] , 0, 3).substr($row3["ROST_NUNIT"] , 3, 9);   
+                        $row3["ROST_NPARENT"] = substr($_POST["unit_name2"] , 0, 3).substr($row3["ROST_NPARENT"] , 3, 9);   
+                        $row3["ROST_UNIT"] = substr($_POST["unit_name2"] , 0, 3).substr($row3["ROST_UNIT"] , 3, 9);   
+                    break;
+                    case 'สำนัก':
+                        $row3["ROST_PARENT"] = substr($_POST["unit_name2"] , 0, 5).substr($row3["ROST_PARENT"] , 5, 9);   
+                        $row3["ROST_NUNIT"] = substr($_POST["unit_name2"] , 0, 5).substr($row3["ROST_NUNIT"] , 5, 9);   
+                        $row3["ROST_NPARENT"] = substr($_POST["unit_name2"] , 0, 5).substr($row3["ROST_NPARENT"] , 5, 9);   
+                        $row3["ROST_UNIT"] = substr($_POST["unit_name2"] , 0, 5).substr($row3["ROST_UNIT"] , 5, 9);   
+                    break;
+                    case 'ศูนย์':
+                        $row3["ROST_PARENT"] = substr($_POST["unit_name2"] , 0, 4).substr($row3["ROST_PARENT"] , 4, 9);   
+                        $row3["ROST_NUNIT"] = substr($_POST["unit_name2"] , 0, 5).substr($row3["ROST_NUNIT"] , 5, 9);   
+                        $row3["ROST_NPARENT"] = substr($_POST["unit_name2"] , 0, 5).substr($row3["ROST_NPARENT"] , 5, 9);   
+                        $row3["ROST_UNIT"] = substr($_POST["unit_name2"] , 0, 5).substr($row3["ROST_UNIT"] , 5, 9);   
+                    break;
+                    // case 'กองพัน':
+                    //     $row3["ROST_PARENT"] = substr($_POST["unit_name2"] , 0, 4).substr($row3["ROST_PARENT"] , 4, 9);   
+                    //     $row3["ROST_NUNIT"] = substr($_POST["unit_name2"] , 0, 6).substr($row3["ROST_NUNIT"] , 6, 9);   
+                    //     $row3["ROST_NPARENT"] = substr($_POST["unit_name2"] , 0, 6).substr($row3["ROST_NPARENT"] , 6, 9);   
+                    //     $row3["ROST_UNIT"] = substr($_POST["unit_name2"] , 0, 4).substr($row3["ROST_UNIT"] , 4, 9);   
+                    // break;
+                    case 'กอง':
+                        // $row3["ROST_PARENT"] = substr($_POST["unit_name2"] , 0, 4).substr($row3["ROST_PARENT"] , 4, 9);  
+                        // $row3["ROST_NUNIT"] = substr($_POST["unit_name2"] , 0, 5).substr($row3["ROST_NUNIT"] , 5, 9);   
+                        $row3["ROST_NPARENT"] = substr($row3["ROST_NPARENT"] , 0, 6).substr( $_POST["unit_name2"], 6, 9);   
+                        $row3["ROST_UNIT"] = substr($row3["ROST_UNIT"]  , 0, 6).substr($_POST["unit_name2"], 6, 9);   
+                    break;
+                    case 'แผนก':
+                        // $row3["ROST_PARENT"] = substr($_POST["unit_name2"] , 0, 4).substr($row3["ROST_PARENT"] , 4, 9);  
+                        // $row3["ROST_NUNIT"] = substr($_POST["unit_name2"] , 0, 5).substr($row3["ROST_NUNIT"] , 5, 9);   
+                        $row3["ROST_NPARENT"] = substr($row3["ROST_NPARENT"] , 0, 7).substr($_POST["unit_name2"], 7,1).'00';
+                        $row3["ROST_UNIT"] = substr($row3["ROST_UNIT"]  , 0, 6).substr($_POST["unit_name2"], 6, 9);   
+                    break;
+                }
+                
+                echo json_encode($row3);
+            break;
+            case 'updatedata_p_ajy':
+                $AJY_ID = $_POST['AJY_ID'];
+                $AJY_NUM_ID = $_POST['AJY_NUM_ID'];
+                $ROST_CPOS = $_POST['ROST_CPOS'];
+                $RATE_P_RANK = $_POST['RATE_P_RANK'];
+                $SALARY_ID = $_POST['SALARY_ID'];
+                $EXPERT_MIL_ID = $_POST['EXPERT_MIL_ID'];
+                $RATE_P_NUMBER = $_POST['RATE_P_NUMBER'];
+                $RATE_P_REMARK = $_POST['RATE_P_REMARK'];
+                $LAO_ID = $_POST['LAO_ID'];
+                $D_ID_2 = $_POST['D_ID_2'];
+                $RATE_SEQ = $_POST['RATE_SEQ'];
+                $RATE_P_VERSION = $_POST['RATE_P_VERSION'];
+                $ROST_UNIT = $_POST['ROST_UNIT'];
+                $ROST_POSNAME = $_POST['ROST_POSNAME'];
+                $ROST_POSNAME_ACM = $_POST['ROST_POSNAME_ACM'];
+                if (isset($_POST['ROST_RANKNAME'])){
+                    $ROST_RANKNAME = $_POST['ROST_RANKNAME'];
+                }else{
+                     $ROST_RANKNAME = $_POST['ROST_RANK'];
+                }
+                $ROST_RANK = $_POST['ROST_RANK'];
+                if (isset($_POST['ROST_LAO_MAJ'])){
+                    $ROST_LAO_MAJ = $_POST['ROST_LAO_MAJ'];
+                }else{
+                     $ROST_LAO_MAJ = $RATE_P_RANK;
+                }
+                $ROST_NCPOS12 = $_POST['ROST_NCPOS12'];
+                $ROST_OLD_ID = $_POST['ROST_ID'];
+                $ROST_PARENT = $_POST['ROST_PARENT'];
+                $ROST_NUNIT = $_POST['ROST_NUNIT'];
+                $ROST_NPARENT = $_POST['ROST_NPARENT'];
+                $RATE_P_NUMBER = ($RATE_P_NUMBER == '')? 0:$RATE_P_NUMBER;
+                $SALARY_ID = ($SALARY_ID == '')? 0:$SALARY_ID;
+
+
+                // echo json_encode($_POST);
+                // die();
+
+               
+                $sql = "INSERT INTO j3_ratepersonal_ajy(RATE_P_NUM, ROST_CPOS, EXPERT_MIL_ID, RATE_P_REMARK, RATE_P_NUMBER, RATE_P_RANK, LAO_ID, D_ID, RATE_SEQ, SALARY_ID, AJY_ID, AJY_NUM_ID, RATE_P_VERSION ) "
+                . "VALUES(NULL, :ROST_CPOS, :EXPERT_MIL_ID, :RATE_P_REMARK, :RATE_P_NUMBER, :RATE_P_RANK, :LAO_ID, :D_ID_2, :RATE_SEQ, :SALARY_ID, :AJY_ID, :AJY_NUM_ID, :RATE_P_VERSION )";
+                $stmt=$db->prepare($sql);
+                $stmt->bindparam(':ROST_CPOS',$ROST_CPOS);
+                $stmt->bindparam(':EXPERT_MIL_ID',$EXPERT_MIL_ID);
+                $stmt->bindparam(':RATE_P_REMARK',$RATE_P_REMARK);
+                $stmt->bindparam(':RATE_P_NUMBER',$RATE_P_NUMBER);
+                $stmt->bindparam(':RATE_P_RANK',$RATE_P_RANK);
+                $stmt->bindparam(':LAO_ID',$LAO_ID);
+                $stmt->bindparam(':D_ID_2',$D_ID_2);
+                $stmt->bindparam(':RATE_SEQ',$RATE_SEQ);
+                $stmt->bindparam(':SALARY_ID',$SALARY_ID);
+                $stmt->bindparam(':AJY_ID',$AJY_ID);
+                $stmt->bindparam(':AJY_NUM_ID',$AJY_NUM_ID);
+                $stmt->bindparam(':RATE_P_VERSION',$RATE_P_VERSION);
+                // $stmt->bindparam(':ROST_OLD_ID',$ROST_OLD_ID);
+                
+                if ($stmt->execute()){
+                    $RATE_P_NUM = $db->lastInsertId();
+                }else{
+                    echo json_encode($stmt->errorInfo());
+                }
+              
+                $sql_find_AJY_NUM_ID = "SELECT * FROM `j3_ajy` WHERE AJY_NUM_ID = '".$_POST["AJY_NUM_ID"]."' ";
+                $res = mysqli_query($conn, $sql_find_AJY_NUM_ID);
+                $result = mysqli_fetch_assoc($res);
+                $AJY_NUM_ID = $result["AJY_NUM_ID"];
+                $VERSION = $result["AJY_VERSION"];
+                // echo json_encode($_POS);
+                // die();
+                
+               
+                $sql2 = "INSERT INTO `j3_rost_transaction` (`TRANSACTION_ID`, `ROST_UNIT`, `ROST_CPOS`, `ROST_POSNAME`, `ROST_POSNAME_ACM`, `ROST_RANK`, `ROST_RANKNAME`, `ROST_LAO_MAJ`, `ROST_NCPOS12`, `ROST_ID`, `ROST_PARENT`, `ROST_NUNIT`, `ROST_NPARENT`, `AJY_NUM_ID`, `STATUS`, `VERSION`) 
+                VALUES (NULL, '".$ROST_UNIT."', '".$ROST_CPOS."', '".$ROST_POSNAME."', '".$ROST_POSNAME_ACM."', '".$_POST["RATE_P_RANK"]."', '".$_POST["RATE_P_RANK"]."', '".$_POST["RATE_SEQ"]."', '".$ROST_NCPOS12."', NULL, '".$ROST_PARENT."', '".$ROST_NUNIT."', '".$ROST_NPARENT."', '".$AJY_NUM_ID."', '1', '".$VERSION."')";
+                $stmt2=$db->prepare($sql2);
+                
+                if ($stmt2->execute()){
+                    $ROST_ID = $db->lastInsertId();
+                    // echo json_encode($result);
+                }else{
+                    echo json_encode($stmt2->errorInfo());
+                    die();
+                }
+                $sql_update = "UPDATE `j3_ratepersonal_ajy` SET ROST_ID = ? WHERE RATE_P_NUM = ?  ";
+                $stmt3=$db->prepare($sql_update);
+                if ($stmt3->execute([NULL , $RATE_P_NUM])){
+                    echo json_encode('success');
+                }else{
+                    echo json_encode($stmt3->errorInfo());
+                }
+            break;
+            case 'viewlast':
+                $ROST_PARENT = $_POST['ROST_PARENT'];
+                $ROST_NUNIT = $_POST['ROST_NUNIT'];
+                $ROST_NPARENT = $_POST['ROST_NPARENT'];
+                $ROST_UNIT = $_POST['ROST_UNIT'];
+                $ROST_CPOS = $_POST['ROST_CPOS'];
+                
+                $condition = "";
+                if ($ROST_PARENT != "") {
+                    $condition .= "AND ROST_PARENT = $ROST_PARENT ";
+                }
+                if ($ROST_NUNIT != "") {
+                    $condition .= "AND ROST_NUNIT = $ROST_NUNIT ";
+                }
+                if ($ROST_NPARENT != "") {
+                    $condition .= "AND ROST_NPARENT = $ROST_NPARENT ";
+                }
+                if ($ROST_UNIT != "") {
+                    $condition .= "AND ROST_UNIT = $ROST_UNIT ";
+                }
+                
+                $sql = "SELECT * ,
+                (SELECT ROST_POSNAME FROM j3_rost WHERE j3_rost.ROST_ID = j3_ratepersonal_ajy.ROST_OLD_ID) AS ROST_POSTNAME_OLD
+                FROM `j3_ratepersonal_ajy` 
+                LEFT JOIN `j3_rost` 
+                ON(j3_rost.ROST_ID = j3_ratepersonal_ajy.ROST_ID ) 
+                WHERE j3_ratepersonal_ajy.`ROST_CPOS` LIKE '".$ROST_CPOS."' $condition 
+                ";
+                // echo json_encode($sql);
+                $stmt=$db->prepare($sql);
+                $stmt->execute();
+                $row=$stmt->fetchall(PDO::FETCH_ASSOC);
+            
+                echo json_encode($row);
+            
+            break;
+        }
+    }
+?>

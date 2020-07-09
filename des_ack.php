@@ -814,7 +814,7 @@ $DMY3 = substr($UNIT_DMY_2,4,4);
 									                        <td style="width: 150px; text-align: center;"><?=$D_NAME;?></td>
 									                        <td style="width: 20px; text-align: center;">
 									                            <div class="table-actions">
-									                                <a href='delete_rate_p.php?id=<?=$RATE_P_NUM;?>&id1=<?=$ACK_NUM_ID?>' onclick="return confirm('คุณต้องการลบรายการนี้ ใช่หรือไม่ ?')"><button type="button" class="btn btn-icon btn-sm btn-danger"><i class="fas fa-ban"></i></button></a>
+									                                <a href='delete_personal.php?id=<?=$RATE_P_NUM;?>&id1=<?=$ACK_NUM_ID?>' onclick="return confirm('คุณต้องการลบรายการนี้ ใช่หรือไม่ ?')"><button type="button" class="btn btn-icon btn-sm btn-danger"><i class="fas fa-ban"></i></button></a>
 									                            </div>
 									                        </td>
 									                    </tr>
@@ -1058,7 +1058,7 @@ $DMY3 = substr($UNIT_DMY_2,4,4);
 																	<td style="text-align: center; width: 50px;">        
 																		<div class="table-actions">
 																			<button type="button" id="link_modal" data-toggle="modal" data-target="#EditModal" data-id="<?=$TRANSACTION_ID;?>" class="btn btn-success btn-sm editbtn"><i class="fas fa-pencil-alt"></i></button></a>
-																			<a href='delete_rate_p.php?id3=<?=$TRANSACTION_ID?>&id4=<?=$ACK_NUM_ID?>&id5=<?=$ROST_POSNAME_ACM?>' onclick="return confirm('คุณต้องการลบรายการนี้ ใช่หรือไม่ ?')"><button type="button" class="btn btn-icon btn-sm btn-danger"><i class="fas fa-ban"></i></button></a>
+																			<a href='delete_personal.php?id3=<?=$TRANSACTION_ID?>&id4=<?=$ACK_NUM_ID?>&id5=<?=$ROST_POSNAME_ACM?>' onclick="return confirm('คุณต้องการลบรายการนี้ ใช่หรือไม่ ?')"><button type="button" class="btn btn-icon btn-sm btn-danger"><i class="fas fa-ban"></i></button></a>
 																		</div>
 																	</td>
 																</tr>
@@ -1702,9 +1702,10 @@ $DMY3 = substr($UNIT_DMY_2,4,4);
 </script>
 <?php require_once __DIR__.'/path/script.php'; ?>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 
@@ -1841,7 +1842,7 @@ $DMY3 = substr($UNIT_DMY_2,4,4);
                     			}
 
                     		});
-                    		modal.find('#ROST_ID').val(ROST_ID)
+                    		modal.find('#TRANSACTION_ID').val(TRANSACTION_ID)
                     	}
                     });
                 })
@@ -1850,7 +1851,7 @@ $DMY3 = substr($UNIT_DMY_2,4,4);
 		var _this = $(this)
 		$.ajax({
 			type: "POST",
-			url: "query_p_ack_edit.php",
+			url: "save_create_personal.php",
 			data: _this.serialize()+"&do=updatedata_p_ack",
 			// dataType: "json",
 			success: function (response) {
@@ -2109,7 +2110,7 @@ $DMY3 = substr($UNIT_DMY_2,4,4);
 			var _this = $(this)
 				$.ajax({
 				type: "POST",    
-				url: "save_rost12.php",
+				url: "save_ncpos12.php",
 				data: _this.serialize(),
 				//dataType: "json",
 				success: function (response) {

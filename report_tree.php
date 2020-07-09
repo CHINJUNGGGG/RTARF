@@ -287,7 +287,7 @@
 														}
 
 													</style>
-													<?php include ('script.php'); ?>
+													<?php include ('path/script.php'); ?>
 
 													<script type="text/javascript"> 
 														window.addEventListener("load", window.print());
