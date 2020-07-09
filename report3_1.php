@@ -132,7 +132,7 @@ $html .= '<div class="card-body">
 						    <th style="text-align: center;">จ.ส.อ.(พ)<br>พ.จ.อ.(พ)<br>พ.อ.อ.(พ)</th>
 						    <th style="text-align: center;">จ.ส.อ.<br>พ.จ.อ.<br>พ.อ.อ.</th>
                             <th style="text-align: center;">ส.อ.<br>จ.อ.</th>
-                            <th style="text-align: center;">ส.ต.<br>จ.ต.</th>
+                            <th style="text-align: center;">ส.ต.กองประจำการ<br>จ.ต.กองประจำการ</th>
                             <th style="text-align: center;">พล.อส.</th>
                             <th style="text-align: center;">พลฯ</th>
 					    </tr>
