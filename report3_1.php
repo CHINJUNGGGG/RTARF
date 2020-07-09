@@ -1,6 +1,6 @@
 <?php
 
-include('db/connectpdo.php');
+include('connectpdo.php');
 
 
 require_once 'pdf/vendor/autoload.php';
@@ -116,7 +116,7 @@ $html .= '<div class="card-body">
 						<th rowspan="2" style="text-align: center;">ชกท.</th>
 						<th rowspan="2" style="text-align: center;">เหล่า</th>
                         <th colspan="10" style="text-align: center;">นายทหารสัญญาบัตร</th>
-                        <th colspan="3" style="text-align: center;">นายทหารประทวน</th>
+                        <th colspan="6" style="text-align: center;">นายทหารประทวน</th>
                         <th rowspan="2" style="text-align: center;">หมายเหตุ</th>
                         <tr>
                             <th style="text-align: center;"><span style="transform:rotate(-90deg);">พล.อ.พ.<br>พล.ร.อ.พ.<br>พล.อ.อ.พ.</span></th>
@@ -131,7 +131,10 @@ $html .= '<div class="card-body">
 						    <th style="text-align: center;">ร.ท.</th>
 						    <th style="text-align: center;">จ.ส.อ.(พ)<br>พ.จ.อ.(พ)<br>พ.อ.อ.(พ)</th>
 						    <th style="text-align: center;">จ.ส.อ.<br>พ.จ.อ.<br>พ.อ.อ.</th>
-						    <th style="text-align: center;">ส.อ.<br>จ.อ.</th>
+                            <th style="text-align: center;">ส.อ.<br>จ.อ.</th>
+                            <th style="text-align: center;">ส.ต.<br>จ.ต.</th>
+                            <th style="text-align: center;">พล.อส.</th>
+                            <th style="text-align: center;">พลฯ</th>
 					    </tr>
 					</tr>
                 </thead>
@@ -155,14 +158,13 @@ $html .= '<div class="card-body">
                 $SUM_14 = "0";
                 $SUM_15 = "0";
                 $SUM_16 = "0";
-                $SUM_17 = "0";
                 if($UNIT_CODE2 == $UNIT_CODE1){
                     $j++;
                     $i++;  
                     if($j == "01"){
                         $sql_2 ="SELECT *,COUNT(TRANSACTION_ID) FROM j3_rost_transaction
                         WHERE ACK_NUM_ID = '$ACK_NUM_ID'
-                        GROUP BY SUBSTRING(ROST_CPOS, 1, 4) ORDER BY ROST_ID";
+                        GROUP BY ROST_POSNAME_ACM ORDER BY ROST_ID";
                         $stmt_2=$db->prepare($sql_2);
                         //$stmt_2->bindparam(':UNIT_CODE1',$UNIT_CODE1);
                         $stmt_2->execute();
@@ -356,6 +358,43 @@ $html .= '<div class="card-body">
                                 }else{
                                     $html .= '-';
                                 }
+                            $html.='</td>
+                            <td style="width: 20px; text-align: center;">';
+                                if($ROST_RANK_1 == "27"){
+                                    
+                                    if($ROST_NCPOS12_1 != ""){
+                                        $html .=$COUNT_1;
+                                        $SUM_14 = $SUM_14+$COUNT_1;
+                                    }else{
+                                        $html .= '-';
+                                    }
+                                }else{
+                                    $html .= '-';
+                                }
+                            $html.='</td><td style="width: 20px; text-align: center;">';
+                                if($ROST_RANK_1 == "31"){
+                                    
+                                    if($ROST_NCPOS12_1 != ""){
+                                        $html .=$COUNT_1;
+                                        $SUM_15 = $SUM_15+$COUNT_1;
+                                    }else{
+                                        $html .= '-';
+                                    }
+                                }else{
+                                    $html .= '-';
+                                }
+                            $html.='</td><td style="width: 20px; text-align: center;">';
+                                if($ROST_RANK_1 == "32"){
+                                    
+                                    if($ROST_NCPOS12_1 != ""){
+                                        $html .=$COUNT_1;
+                                        $SUM_15 = $SUM_15+$COUNT_1;
+                                    }else{
+                                        $html .= '-';
+                                    }
+                                }else{
+                                    $html .= '-';
+                                }
                             $html.='</td>';
                                     
                             $html.='<td style="width: 50px; text-align: center;"></td>
@@ -363,7 +402,7 @@ $html .= '<div class="card-body">
                     
                         $sql2 ="SELECT *,COUNT(TRANSACTION_ID) FROM j3_rost_transaction
                         WHERE ACK_NUM_ID = '$ACK_NUM_ID'
-                        GROUP BY SUBSTRING(ROST_CPOS, 1, 4) ORDER BY ROST_ID";
+                        GROUP BY ROST_POSNAME_ACM ORDER BY ROST_ID";
                         $stmt2=$db->prepare($sql2);
                         //$stmt2->bindparam(':UNIT_CODE1',$UNIT_CODE1);
                         $stmt2->execute();
@@ -388,7 +427,7 @@ $html .= '<div class="card-body">
                             $ROST_POSNAME = $ROST_POSNAME[0];
                             
                             //$i++;
-                            if($ROST_RANK <= "25" && $ROST_RANK != 19){
+                            if($ROST_RANK <= "32" && $ROST_RANK != 19 && $ROST_RANK != 29 && $ROST_RANK != 26){
                                 $i++;
                                 $html .= '<tr>
                                 <td style="width: 20px; text-align: center;"></td>
@@ -591,6 +630,48 @@ $html .= '<div class="card-body">
                                                 $html .= '-';
                                             }
                                             
+                                        $html.='</td>
+                                        <td style="width: 20px; text-align: center;">';
+                                            if(in_array("27", $RANK)){
+                                                
+                                                if($ROST_NCPOS12 != ""){
+                                                    $html .=$COUNT_AR[array_search("27", $RANK)];
+                                                    $SUM_14 = $SUM_14+$COUNT_AR[array_search("27", $RANK)];
+                                                }else{
+                                                    $html .= '-';
+                                                }
+                                            }else{
+                                                $html .= '-';
+                                            }
+                                            
+                                        $html.='</td>
+                                        <td style="width: 20px; text-align: center;">';
+                                            if(in_array("31", $RANK)){
+                                                
+                                                if($ROST_NCPOS12 != ""){
+                                                    $html .=$COUNT_AR[array_search("31", $RANK)];
+                                                    $SUM_15 = $SUM_15+$COUNT_AR[array_search("31", $RANK)];
+                                                }else{
+                                                    $html .= '-';
+                                                }
+                                            }else{
+                                                $html .= '-';
+                                            }
+                                            
+                                        $html.='</td>
+                                        <td style="width: 20px; text-align: center;">';
+                                            if(in_array("32", $RANK)){
+                                                
+                                                if($ROST_NCPOS12 != ""){
+                                                    $html .=$COUNT_AR[array_search("32", $RANK)];
+                                                    $SUM_16 = $SUM_16+$COUNT_AR[array_search("32", $RANK)];
+                                                }else{
+                                                    $html .= '-';
+                                                }
+                                            }else{
+                                                $html .= '-';
+                                            }
+                                            
                                         $html.='</td>';
                                     $html.='<td style="width: 50px; text-align: center;"></td>
                                 </tr>';
@@ -696,7 +777,28 @@ $html .= '<div class="card-body">
                             $html.=$SUM_11;
                         }
                     $html.='</td>
-                    <td style="width: 50px; text-align: center;"></td>
+                    <td style="width: 20px; text-align: center;">';
+                        if($SUM_14 == "0"){
+                            $html .= '-';
+                        }else{
+                            $html.=$SUM_14;
+                        }
+                    $html.='</td>
+                    <td style="width: 20px; text-align: center;">';
+                        if($SUM_15 == "0"){
+                            $html .= '-';
+                        }else{
+                            $html.=$SUM_15;
+                        }
+                    $html.='</td>
+                    <td style="width: 20px; text-align: center;">';
+                        if($SUM_16 == "0"){
+                            $html .= '-';
+                        }else{
+                            $html.=$SUM_16;
+                        }
+                    $html.='</td>';
+                    $html.='<td style="width: 50px; text-align: center;"></td>
                 </tr>';
 
 	$html .='</tbody>
